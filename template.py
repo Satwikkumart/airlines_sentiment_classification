@@ -16,7 +16,7 @@ list_of_files = [
     f"src/{project_name}/modeltraining/__init__.py",
     f"src/{project_name}/modelevaluation/__init__.py",
     f"src/{project_name}/savingmodel/_init__.py",
-    f"src/{project_name}/predictions/__init__.py"
+    f"src/{project_name}/predictions/__init__.py",
     "config/config.yaml",
     "dvc.yaml",
     "params.yaml",
