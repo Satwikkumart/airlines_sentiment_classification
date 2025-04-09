@@ -1,0 +1,27 @@
+torch
+# PyTorch
+transformers
+tensorflow==2.19.0
+pandas
+gdown
+mlflow==2.21.0
+notebook
+numpy
+scikit-learn
+matplotlib
+seaborn
+python-box
+pyYAML
+tqdm
+ensure
+joblib
+types-pyYAML
+scipy
+Flask
+FLask-Cors
+gensim
+# porterStemmer
+
+-e .
+
+# setuptools >= 64
