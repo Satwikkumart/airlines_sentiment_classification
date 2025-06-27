@@ -1,6 +1,6 @@
 from airlinesSentiment.constants import *
 from airlinesSentiment.utils.common import read_yaml, create_directories
-from airlinesSentiment.entity.config_entity import (DataIngestionConfig)
+from airlinesSentiment.entity.config_entity import (DataIngestionConfig, DataPreprocessing)
 
 
 class ConfigurationManager:
@@ -28,3 +28,14 @@ class ConfigurationManager:
         )
 
         return data_ingestion_config
+
+
+    def data_pre_processing(self) -> DataPreproceesing:
+         config = self.config.preprossing
+
+         pre_processing = DataPreprocessing(
+              nlp=config.nlp,
+              stop_words=config.stop_words
+         )
+         
+         return pre_processing
