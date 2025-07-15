@@ -43,7 +43,7 @@ class DataIngestion:
             zip_ref.extractall(unzip_path)
 
     
-    def data_processing(self):
+    # def data_processing(self):
 
 
     

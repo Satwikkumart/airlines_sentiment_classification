@@ -1,4 +1,6 @@
 # from src.airlinesSentiment import logger
+import pandas as pd
+from airlinesSentiment.pipeline.stage_02_feature_engineering_pipeline import FeaturePipeline        
 from airlinesSentiment import logger
 from airlinesSentiment.pipeline.stage_01_data_ingestion import DataIngestionTrainingPipeline
 
@@ -14,3 +16,14 @@ except Exception as e:
     logger.exception(e)
     raise e
 
+STAGE_NAME = "Feature Engineering pipeline"
+
+try:
+    logger.info(f">>>>>>> stage {STAGE_NAME} started <<<<<<<< ")
+    obj = FeaturePipeline()
+    obj.main()
+    logger.info(f">>>>> stage {STAGE_NAME} completed \n \n x==============x")
+
+except Exception as e:
+    logger.exception(e)
+    raise e

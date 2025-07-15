@@ -1,6 +1,6 @@
 from airlinesSentiment.constants import *
 from airlinesSentiment.utils.common import read_yaml, create_directories
-from airlinesSentiment.entity.config_entity import (DataIngestionConfig, DataPreprocessing)
+from airlinesSentiment.entity.config_entity import (DataIngestionConfig, DataPreprocessingConfig, DataTransformationConfig)
 
 
 class ConfigurationManager:
@@ -30,12 +30,30 @@ class ConfigurationManager:
         return data_ingestion_config
 
 
-    def data_pre_processing(self) -> DataPreproceesing:
-         config = self.config.preprossing
+    def get_data_preprocessing_config(self) -> DataPreprocessingConfig:
+        config = self.config["data_preprocessing"]
+        return DataPreprocessingConfig(**config)
+    
 
-         pre_processing = DataPreprocessing(
-              nlp=config.nlp,
-              stop_words=config.stop_words
+    def get_data_transformation_config(self) -> DataTransformationConfig:
+         config = self.config["data_tranformation"]
+
+
+         data_preprocessing_config = DataPreprocessingConfig(
+              spacy_model=config["data_preprocessing"]["spacy_model"],
+              remove_punctuation=config["data_preprocessing"]["remove_punctuation"],
+              lowercase=config["data_preprocessing"]["lowercase"],
+              lemmatize=config["data_preprocessing"]["lemmatize"],
+              remove_stopwords=config["data_preprocessing"]["remove_stopwords"],
+              custom_stopwords=config["data_preprocessing"]["custom_stopwords"]
          )
+
+         return DataTransformationConfig(
+              data_preprocessing_config= data_preprocessing_config,
+              text_column=config["text_column"],
+              vectorize_path=Path(config["vectorize_path"]),
+              cleaned_data_path=Path(config["cleaned_data_path"]),
+              features_path=Path(config["features_path"])
+             
+        )
          
-         return pre_processing
