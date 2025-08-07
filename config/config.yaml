@@ -7,18 +7,30 @@ data_ingestion:
   local_data_file: artifacts/data_ingestion/data.zip
   unzip_dir: artifacts/data_ingestion
 
-prepare_base_model:
-  root_dir: artifacts/prepare_base_model
-  base_model_path: artifacts/prepare_base_model/base_model.h5
-  updated_base_model_path: artifacts/prepare_base_model/base_model_updated.h5
+feature_engineering:
+  root_dir: artifacts/feature_engineering
+  training_data_path: artifacts/feature_engineering
+  training_data_file: artifacts/feature_engineering/Tweets.csv
+  training_cleansed_data: artifacts/feature_engineering
+  datasets_dir: artifacts/feature_engineering/datasets
 
-data_preprocessing:
-  spacy_model: "en_core_web_sm"
-  remove_punctuation: True
-  lowercase: True
-  lemmatize: True
-  remove_stopwords: True
-  custom_stopwords: []
 
-data_transformation:
-  text_column: 
+prepare_model:
+  root_dir: artifacts/prepare_model
+  base_model_path: artifacts/prepare_model/
+  updated_base_model_path: artifacts/prepare_model/
+
+training:
+  root_dir: artifacts/training
+  model_save_path: artifacts/training/trained_model
+
+# data_preprocessing:
+#   spacy_model: "en_core_web_sm"
+#   remove_punctuation: True
+#   lowercase: True
+#   lemmatize: True
+#   remove_stopwords: True
+#   custom_stopwords: []
+
+# data_transformation:
+#   text_column: 

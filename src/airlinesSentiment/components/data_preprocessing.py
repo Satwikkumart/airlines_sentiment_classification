@@ -9,6 +9,7 @@ class DataPreprocessor:
         self.config = config
         self.nlp = spacy.load(config.spacy_model)
         self.stop_words = set(stopwords.words('english'))
+        
 
         if config.custom_stopwords:
             self.stop_words.update(config.custom_stopwords)
