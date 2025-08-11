@@ -177,3 +177,7 @@ artifacts/*
 # MLflow logs and artifacts
 mlruns/
 artifacts/
+
+# Ignore MLflow and project artifacts
+mlruns/
+artifacts/
