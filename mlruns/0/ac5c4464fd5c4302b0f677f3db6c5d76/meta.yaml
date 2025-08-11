@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/satwik/Downloads/MLproj/airlines_sentiment_classification/mlruns/0/ac5c4464fd5c4302b0f677f3db6c5d76/artifacts
+end_time: 1754893828495
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: ac5c4464fd5c4302b0f677f3db6c5d76
+run_name: artifacts/training
+run_uuid: ac5c4464fd5c4302b0f677f3db6c5d76
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1754893773339
+status: 3
+tags: []
+user_id: satwik

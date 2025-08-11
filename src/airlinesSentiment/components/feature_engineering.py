@@ -10,7 +10,7 @@ from pathlib import Path
 from airlinesSentiment.entity.config_entity import DataPreprocessingConfig
 import pandas as pd
 from nltk.corpus import stopwords
-from transformers import tokenizer
+from transformers import AutoTokenizer
 import torch
 from transformers import BertTokenizer
 from sklearn.model_selection import train_test_split
@@ -20,16 +20,16 @@ import logging
 logger = logging.getLogger(__name__)
 
 class SentimentDataset(Dataset):
-    def __init__(self, encodings, label):
+    def __init__(self, encodings, labels):
         self.encodings = encodings
-        self.label = label
+        self.labels = labels
 
     def __len__(self):
         return len(self.labels)
     
     def __getitem__(self, idx):
         item = {key: torch.tensor(val[idx]) for key, val in self.encodings.items()}
-        item['labels'] = torch.tensor(self.labels)
+        item['labels'] = torch.tensor(self.labels[idx       ])
         return item
     
 class DataPreprocessing:
@@ -85,7 +85,7 @@ class DataPreprocessing:
             lambda x: self.tokenizer(x, padding='max_length', truncation=True, max_length=128, return_tensors='pt')
         )
 
-        logger.info(f"Preprocessed data saved to {self.output_file_path}")
+        logger.info(f"Text tokenization completed")
     
     def save_data(self):
         self.data.to_csv(self.output_file_path, index=False)
@@ -132,3 +132,5 @@ class DataPreprocessing:
         torch.save(train_dataset, datasets_dir / "train_dataset.pt")
         torch.save(val_dataset, datasets_dir / "val_dataset.pt")
         torch.save(test_dataset, datasets_dir / "test_dataset.pt")
+
+        logger.info(f"Datasets saved to {datasets_dir}")

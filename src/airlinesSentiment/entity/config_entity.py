@@ -44,3 +44,19 @@ class PrepareBaseModelConfig:
     params_max_steps: int
     params_save_steps: int
     params_logging_steps: int
+
+
+@dataclass(frozen=True)
+class TrainingConfig:
+    datasets_dir: Path
+    output_dir: Path
+    base_model_path: Path
+    model_save_path: Path
+    num_train_epochs: int
+    per_device_train_batch_size: int
+    per_device_eval_batch_size: int
+    warmup_steps: int
+    weight_decay: float
+    max_steps: int
+    save_steps: int
+    logging_steps: int

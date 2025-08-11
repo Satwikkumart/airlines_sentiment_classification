@@ -31,29 +31,92 @@ class ConfigurationManager:
 
 
     def get_data_preprocessing_config(self) -> DataPreprocessingConfig:
-        config = self.config["data_preprocessing"]
-        return DataPreprocessingConfig(**config)
+        config = self.config.feature_engineering
+
+        create_directories([config.root_dir])
+
+        data_preprocessing_config = DataPreprocessingConfig(
+             root_dir=config.root_dir,
+             training_data_path=config.training_data_path,
+             training_data_file=config.training_data_file,
+             training_cleansed_data=config.training_cleansed_data,
+             datasets_dir=config.datasets_dir
+        )
+
+        return data_preprocessing_config
     
 
-    def get_data_transformation_config(self) -> DataTransformationConfig:
-         config = self.config["data_tranformation"]
+    # def get_data_transformation_config(self) -> DataTransformationConfig:
+    #      config = self.config["data_tranformation"]
 
 
-         data_preprocessing_config = DataPreprocessingConfig(
-              spacy_model=config["data_preprocessing"]["spacy_model"],
-              remove_punctuation=config["data_preprocessing"]["remove_punctuation"],
-              lowercase=config["data_preprocessing"]["lowercase"],
-              lemmatize=config["data_preprocessing"]["lemmatize"],
-              remove_stopwords=config["data_preprocessing"]["remove_stopwords"],
-              custom_stopwords=config["data_preprocessing"]["custom_stopwords"]
-         )
+    #      data_preprocessing_config = DataPreprocessingConfig(
+    #           spacy_model=config["data_preprocessing"]["spacy_model"],
+    #           remove_punctuation=config["data_preprocessing"]["remove_punctuation"],
+    #           lowercase=config["data_preprocessing"]["lowercase"],
+    #           lemmatize=config["data_preprocessing"]["lemmatize"],
+    #           remove_stopwords=config["data_preprocessing"]["remove_stopwords"],
+    #           custom_stopwords=config["data_preprocessing"]["custom_stopwords"]
+    #      )
 
-         return DataTransformationConfig(
-              data_preprocessing_config= data_preprocessing_config,
-              text_column=config["text_column"],
-              vectorize_path=Path(config["vectorize_path"]),
-              cleaned_data_path=Path(config["cleaned_data_path"]),
-              features_path=Path(config["features_path"])
+    #      return DataTransformationConfig(
+    #           data_preprocessing_config= data_preprocessing_config,
+    #           text_column=config["text_column"],
+    #           vectorize_path=Path(config["vectorize_path"]),
+    #           cleaned_data_path=Path(config["cleaned_data_path"]),
+    #           features_path=Path(config["features_path"])
              
-        )
+    #     )
          
+    
+    def get_prepare_base_model_config(self) -> PrepareBaseModelConfig:
+         config = self.config.prepare_model
+
+         create_directories([config.root_dir])
+
+         prepare_base_model_config = PrepareBaseModelConfig(
+              root_dir=Path(config.root_dir),
+              base_model_path=Path(config.base_model_path),
+              params_num_train_epochs=self.params.num_train_epochs,
+              params_per_device_train_batch_size=self.params.per_device_train_batch_size,
+              params_per_device_eval_batch_size=self.params.per_device_eval_batch_size,
+              params_weight_decay=self.params.weight_decay,
+              params_max_steps=self.params_max_steps,
+              params_warmup_steps=self.params_warmup_steps,
+              params_save_steps=self.params_save_steps,
+              params_logging_steps=self.params.logging_steps
+         )
+         
+         return get_prepare_base_model_config
+
+
+    def get_training_config(self) -> TrainingConfig:
+        training = self.training.config
+        params = self.params
+        training_data = os.path.join(self.config.feature_engineering.datasets_dir, "datasets")
+        base_model = self.config.prepare_model
+        base_model = os.path.join(self.config.prepare_model.base_model_path, "prepare_model")
+
+         
+        #  create directories if they don't exist
+        create_directories([
+            Path(training.root_dir),
+            Path(training.model_save_path)
+        ])
+
+        training_config = TrainingConfig(
+             datasets_dir=Path(training_data),
+             base_model_path=Path(base_model),
+             output_dir=Path(training.root_dir),
+             model_save_path=Path(training.model_save_path),
+             num_train_epochs=params.num_train_epochs,
+             per_device_train_batch_size=params.per_device_train_batch_size,
+             per_device_eval_batch_size=params.per_device_eval_batch_size,
+             warmup_steps=params.warmup_steps,
+             weight_decay=params.weight_decay,
+             max_steps=params.max_steps,
+             save_steps=params.save_steps,
+             logging_steps=params.logging_steps
+        )
+        
+        return training_config

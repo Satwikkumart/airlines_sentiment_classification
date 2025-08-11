@@ -1,0 +1,36 @@
+artifacts_root: artifacts
+
+
+data_ingestion:
+  root_dir: artifacts/data_ingestion
+  source_URL: https://drive.google.com/file/d/1zR4WXP61yBywRjpHvjjjlAZt-65hgQ89/view?usp=sharing
+  local_data_file: artifacts/data_ingestion/data.zip
+  unzip_dir: artifacts/data_ingestion
+
+feature_engineering:
+  root_dir: artifacts/feature_engineering
+  training_data_path: artifacts/feature_engineering
+  training_data_file: artifacts/feature_engineering/Tweets.csv
+  training_cleansed_data: artifacts/feature_engineering
+  datasets_dir: artifacts/feature_engineering/datasets
+
+
+prepare_model:
+  root_dir: artifacts/prepare_model
+  base_model_path: artifacts/prepare_model/
+  updated_base_model_path: artifacts/prepare_model/
+
+training:
+  root_dir: artifacts/training
+  model_save_path: artifacts/training/trained_model
+
+# data_preprocessing:
+#   spacy_model: "en_core_web_sm"
+#   remove_punctuation: True
+#   lowercase: True
+#   lemmatize: True
+#   remove_stopwords: True
+#   custom_stopwords: []
+
+# data_transformation:
+#   text_column: 
