@@ -11,4 +11,18 @@ class ModelTrainingPipeline:
     def main(self):
         config = ConfigurationManager()
         trainingconfig = config.get_training_config()
-        model_training = ModelTraining
+        model_training = ModelTraining(config=trainingconfig)
+        model_training.train()
+        model_training.evaluate()
+
+
+if __name__ == '__main__':
+    try:
+        logger.info(F">>>>>>>> stage name {STAGE_NAME} started <<<<<<<<<<<")
+        obj = ModelTrainingPipeline()
+        obj.main()
+        logger.info(f" >>>>>>> stage {STAGE_NAME} completed <<<<<<<<<< \n \n x============x")
+    
+    except Exception as e:
+        logger.exception(e)
+        raise e

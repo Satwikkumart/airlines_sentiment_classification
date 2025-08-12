@@ -90,7 +90,7 @@ class ModelTraining:
 
 
 
-    def save_mode(self, trainer):
+    def save_model(self, trainer):
         """
         Saves the trained model and toknizer to the specified directory
         

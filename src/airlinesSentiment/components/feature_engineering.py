@@ -10,7 +10,7 @@ from pathlib import Path
 from airlinesSentiment.entity.config_entity import DataPreprocessingConfig
 import pandas as pd
 from nltk.corpus import stopwords
-from transformers import AutoTo
+from transformers import AutoTokenizer
 import torch
 from transformers import BertTokenizer
 from sklearn.model_selection import train_test_split
@@ -77,7 +77,7 @@ class DataPreprocessing:
         return ' '.join(tokens)
 
     def mapping_labels_func(self) -> None:
-        self.data['label'] = self.data['airlines_sentiment'].map(self.mapping_labels)
+        self.data['label'] = self.data['airline_sentiment'].map(self.mapping_labels)
         logger.info('labels mapped to numerical values')
 
     def tokenize_text(self) -> None:

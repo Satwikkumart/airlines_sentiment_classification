@@ -15,7 +15,7 @@ class BaseModelPipeline:
         prepare_base_model.get_base_model()
 
     
-if __name__ == "__main__":
+if __name__ == '__main__':
     try:
         logger.info(f">>>>> stage {STAGE_NAME}  started <<<<<<<<<<")
         obj = BaseModelPipeline()

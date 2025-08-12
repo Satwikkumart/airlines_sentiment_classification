@@ -12,13 +12,7 @@ class DataIngestionConfig:
 
 @dataclass(frozen=True)
 class DataPreprocessingConfig:
-    # spacy_model: str
-    # remove_punctuation: bool
-    # lowercase: bool
-    # lemmatize: bool
-    # remove_stopwords: bool
-    # custom_stopwords: List[str]
-    root_dir = Path
+    root_dir : Path
     training_data_path : Path
     training_data_file : Path
     training_cleansed_data: Path
