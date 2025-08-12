@@ -10,7 +10,7 @@ from pathlib import Path
 from airlinesSentiment.entity.config_entity import DataPreprocessingConfig
 import pandas as pd
 from nltk.corpus import stopwords
-from transformers import AutoTokenizer
+from transformers import AutoTo
 import torch
 from transformers import BertTokenizer
 from sklearn.model_selection import train_test_split
@@ -80,7 +80,7 @@ class DataPreprocessing:
         self.data['label'] = self.data['airlines_sentiment'].map(self.mapping_labels)
         logger.info('labels mapped to numerical values')
 
-    def tokenize_texts(self) -> None:
+    def tokenize_text(self) -> None:
         self.data['tokenized'] = self.data['cleaned_text'].apply(
             lambda x: self.tokenizer(x, padding='max_length', truncation=True, max_length=128, return_tensors='pt')
         )
@@ -110,11 +110,12 @@ class DataPreprocessing:
         }
     
     def convert_to_tokenized_datasets(self, splits: dict) -> dict:
-        train_encodigs: self.tokenizer(splits['train']['texts'], truncation=True, padding=True, max_length=128)
-        val_encodings: self.tokenizer(splits['val']['texts'], truncation=True, padding=True, max_length=128)
-        test_encodings: self.tokenizer(splits['test']['texts'], truncation=True, padding=True, max_length=128)
+        train_encodings = self.tokenizer(splits['train']['texts'], truncation=True, padding=True, max_length=128)
+        val_encodings = self.tokenizer(splits['val']['texts'], truncation=True, padding=True, max_length=128)
+        test_encodings = self.tokenizer(splits['test']['texts'], truncation=True, padding=True, max_length=128)
 
-        train_dataset = SentimentDataset(train_encodigs, splits['train']['labels'])
+
+        train_dataset = SentimentDataset(train_encodings, splits['train']['labels'])
         val_dataset = SentimentDataset(val_encodings, splits['val']['labels'])
         test_dataset = SentimentDataset(test_encodings, splits['test']['labels'])
         
